@@ -95,18 +95,6 @@ function buildCharts(sample) {
 
     // Scale the out_ids to 0-256 for color
 
-
-    // Load a new array with the scaled values
-    // var tmpArray = samples["out_ids"].map(function(item) {
-    //   return item;
-    // });
-    // console.log(`temp array: ${tmpArray}`);
-    // scaledOut_Ids = tmpArray.map(function(value){
-    //   console.log(`before scaling: ${value}`);
-    //   console.log(`after scaling: ${grnScale(value)}`);
-    //   return grnScale(value);
-    // });
-      
     var tmpArray = samples["otu_ids"];
     var grnScale = d3.scaleLinear()
       .domain(d3.extent(tmpArray)) // The extents of my samples
