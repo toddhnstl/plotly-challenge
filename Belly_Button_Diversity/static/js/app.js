@@ -20,7 +20,7 @@ function buildMetadata(sample) {
     //   //var row = tbody.append("tr");
     
       Object.entries(sampleResult).forEach(function([key, value]) {
-        console.log(key, value);
+        //console.log(key, value);
         // Append a cell to the row for each value
         // in the weather report object
         var p = smplRsltsHtml.append("p");
@@ -31,7 +31,7 @@ function buildMetadata(sample) {
 
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
-    console.log(`WFEQ: ${sampleResult["WFREQ"]}`);
+    //console.log(`WFEQ: ${sampleResult["WFREQ"]}`);
 
     // var data = [
     //   {
@@ -53,14 +53,14 @@ function buildMetadata(sample) {
 
     var data = [
       {
-        domain: { x: [0, 1], y: [0, 1] },
+        domain: { x: [0, 1], y: [0, 1]},
         value: sampleResult["WFREQ"],
         title: { text: "Wash Frequency" },
         type: "indicator",
         mode: "gauge+number+delta",
         //delta: { reference: 7 },
         gauge: {
-          axis: { range: [null, 9] },
+          axis: { range: [null, 9], tickwidth: 3, tickcolor: "red" },
           steps: [
             { range: [0, 1], color: "#FFF8DC" },
             { range: [1, 2], color: '#FFF8DC' },
@@ -92,8 +92,41 @@ function buildCharts(sample) {
   ///  @app.route("/samples/<sample>")
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   d3.json(`/samples/${sample}`).then(function(samples) {
-    //console.log(samples);
+    console.log(samples);
     // @TODO: Build a Bubble Chart using the sample data
+
+    // Scale the out_ids to 0-256 for color
+
+
+    // Load a new array with the scaled values
+    // var tmpArray = samples["out_ids"].map(function(item) {
+    //   return item;
+    // });
+    // console.log(`temp array: ${tmpArray}`);
+    // scaledOut_Ids = tmpArray.map(function(value){
+    //   console.log(`before scaling: ${value}`);
+    //   console.log(`after scaling: ${grnScale(value)}`);
+    //   return grnScale(value);
+    // });
+      
+    var tmpArray = samples["otu_ids"];
+    var grnScale = d3.scaleLinear()
+      .domain(d3.extent(tmpArray)) // The extents of my samples
+      //.domain(1,100)
+      .range([0, 256]);
+
+
+    console.log(`labels in temp array?: ${tmpArray}`)
+    scaledOut_Ids = tmpArray.map(function(value){
+      return grnScale(value);
+    }); 
+    
+    var myColors = scaledOut_Ids.map(function(value){
+      return `rgb(0, ${value}, 0)`
+    })
+
+    //console.log(`myColors is: ${myColors}`);
+
     var trace1 = {
       x: samples["otu_ids"],
       y: samples["sample_values"],
@@ -101,7 +134,7 @@ function buildCharts(sample) {
       text: samples["otu_labels"],
       marker: {
         size: samples["sample_values"],
-        color: samples["out_ids"]
+        color: myColors
       }
     };
     
