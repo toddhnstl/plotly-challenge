@@ -33,44 +33,27 @@ function buildMetadata(sample) {
     // buildGauge(data.WFREQ);
     //console.log(`WFEQ: ${sampleResult["WFREQ"]}`);
 
-    // var data = [
-    //   {
-    //     domain: { x: [0, 1], y: [0, 1] },
-    //     value: sampleResult["WFREQ"],
-    //     title: { text: "Wash Frequency" },
-    //     type: "indicator",
-    //     mode: "gauge+number",
-    //     gauge: {
-    //       axis: { range: [null, 9]}
-    //     }
-    //   }
-    // ];
-
-    
-    //var layout = { width: 300, height: 250, margin: { t: 0, b: 0 } };
-    //Plotly.newPlot(gauge, data, layout);
-    //Plotly.newPlot(gauge, data)
-
     var data = [
       {
-        domain: { x: [0, 1], y: [0, 1]},
+        domain: { x: [0, 9], y: [0, 9]},
         value: sampleResult["WFREQ"],
-        title: { text: "Wash Frequency" },
+        title: { text: "Scrubs per Week" },
         type: "indicator",
-        mode: "gauge+number+delta",
+        mode: "gauge+number",
         //delta: { reference: 7 },
         gauge: {
-          axis: { range: [null, 9], tickwidth: 3, tickcolor: "red" },
+          axis: { range: [null, 9], tickwidth: 3, 
+            tickcolor: "red", tick0: 1, dtick: 1 },
           steps: [
-            { range: [0, 1], color: "#FFF8DC" },
-            { range: [1, 2], color: '#FFF8DC' },
-            { range: [2, 3], color: "#FFEBCD" },
-            { range: [3, 4], color: "#FFDEAD" },
-            { range: [4, 5], color: "#90EE90" },
-            { range: [5, 6], color: "#32CD32" },
-            { range: [6, 7], color: "#8FBC8F" },
-            { range: [7, 8], color: '#3CB371' }, 
-            { range: [8, 9], color: '#2E8B57' },
+            { range: [0, 1], color: "#CDE4C9" },
+            { range: [1, 2], color: '#BED4BB' },
+            { range: [2, 3], color: "#A2BC9E" },
+            { range: [3, 4], color: "#769A70" },
+            { range: [4, 5], color: "#6AA860" },
+            { range: [5, 6], color: "#67B45A" },
+            { range: [6, 7], color: "#5CB64D" }, 
+            { range: [7, 8], color: '#478F3B' }, 
+            { range: [8, 9], color: '#35692D' },
           ]
           // threshold: {
           //   line: { color: "red", width: 4 },
@@ -81,7 +64,22 @@ function buildMetadata(sample) {
       }
     ];
     
-    var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+    var layout = { 
+  
+      title: {
+          text:'Belly Button Washing Frequency',
+          font: {
+            family: 'Courier Bold',            
+            Style: 'bold',
+            size: 24
+          },
+          xref: 'paper',
+          x: 0.01,
+        },
+      width: 450, 
+      height: 300, 
+      margin: { t: 45, b: .05 } 
+    };
     Plotly.newPlot(gauge, data, layout);
 
   }); // end d3.json(`/metadata/${sample}`).then(function(sampleResult)
@@ -92,7 +90,7 @@ function buildCharts(sample) {
   ///  @app.route("/samples/<sample>")
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   d3.json(`/samples/${sample}`).then(function(samples) {
-    console.log(samples);
+    //console.log(samples);
     // @TODO: Build a Bubble Chart using the sample data
 
     // Scale the out_ids to 0-256 for color
@@ -116,7 +114,7 @@ function buildCharts(sample) {
       .range([0, 256]);
 
 
-    console.log(`labels in temp array?: ${tmpArray}`)
+    //console.log(`labels in temp array?: ${tmpArray}`)
     scaledOut_Ids = tmpArray.map(function(value){
       return grnScale(value);
     }); 
