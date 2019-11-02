@@ -43,7 +43,8 @@ function buildMetadata(sample) {
         //delta: { reference: 7 },
         gauge: {
           axis: { range: [null, 9], tickwidth: 3, 
-            tickcolor: "red", tick0: 1, dtick: 1 },
+            tickcolor: "black", tick0: 1, dtick: 1 },
+          bar: {'color': "darkblue"},
           steps: [
             { range: [0, 1], color: "#CDE4C9" },
             { range: [1, 2], color: '#BED4BB' },
