@@ -10,6 +10,7 @@ from sqlalchemy import create_engine
 
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask import send_from_directory
 
 app = Flask(__name__)
 
@@ -103,3 +104,8 @@ def samples(sample):
 
 if __name__ == "__main__":
     app.run()
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
