@@ -44,7 +44,7 @@ function buildMetadata(sample) {
         gauge: {
           axis: { range: [null, 9], tickwidth: 3, 
             tickcolor: "black", tick0: 1, dtick: 1 },
-          bar: {'color': "darkblue"},
+          bar: {'color': "red"},
           steps: [
             { range: [0, 1], color: "#CDE4C9" },
             { range: [1, 2], color: '#BED4BB' },
