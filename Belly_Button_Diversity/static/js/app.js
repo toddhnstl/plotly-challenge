@@ -12,13 +12,6 @@ function buildMetadata(sample) {
     // Use `.html("") to clear any existing metadata
     smplRsltsHtml.html("");
 
-    // Use `Object.entries` to add each key and value pair to the panel
-    // Hint: Inside the loop, you will need to use d3 to append new
-    // tags for each key-value in the metadata.
-    // sampleResult.forEach(function(sampleResult) {
-    //   console.log(sampleResult);
-    //   //var row = tbody.append("tr");
-
     Object.entries(sampleResult).forEach(function ([key, value]) {
       //console.log(key, value);
       // Append a cell to the row for each value
